@@ -13,7 +13,7 @@ function App() {
   );
 }
 
-export function Task({ title }) {
+export function Task({ title }: { title: string }) {
   return <span>{title}</span>;
 }
 
