@@ -13,7 +13,7 @@ function App() {
         <ul className="flex flex-col">
           {dataTasks.map((task) => {
             return (
-              <li>
+              <li key={task.id}>
                 <Task title={task.title} />
               </li>
             );
