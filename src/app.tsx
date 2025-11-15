@@ -2,7 +2,7 @@ import "./app.css";
 
 function App() {
   return (
-    <div>
+    <div className="flex justify-center">
       <h1>Task management</h1>
       <Profile />
       <Profile />
