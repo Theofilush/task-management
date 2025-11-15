@@ -1,12 +1,23 @@
+const dataTasks = [
+  { id: 1, title: "Breakfast" },
+  { id: 2, title: "Lunch" },
+  { id: 3, title: "Dinner" },
+  { id: 4, title: "Sleep" },
+];
+
 function App() {
   return (
     <div className="flex justify-center">
       <div>
         <h1>Task management</h1>
         <ul className="flex flex-col">
-          <Task title="breakfast" />
-          <Task title="Lunch" />
-          <Task title="dinner" />
+          {dataTasks.map((task) => {
+            return (
+              <li>
+                <Task title={task.title} />
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
