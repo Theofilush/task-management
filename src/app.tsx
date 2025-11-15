@@ -1,18 +1,20 @@
-import "./app.css";
-
 function App() {
   return (
     <div className="flex justify-center">
-      <h1>Task management</h1>
-      <Profile />
-      <Profile />
-      <Profile />
+      <div>
+        <h1>Task management</h1>
+        <ul className="flex flex-col">
+          <Task title="breakfast" />
+          <Task title="Lunch" />
+          <Task title="dinner" />
+        </ul>
+      </div>
     </div>
   );
 }
 
-export function Profile() {
-  return <img width={200} src="https://images.pexels.com/photos/3938023/pexels-photo-3938023.jpeg?cs=srgb&dl=scientist-working-in-laboratory-3938023.jpg&fm=jpg" alt="Katherine Johnson" />;
+export function Task({ title }) {
+  return <span>{title}</span>;
 }
 
 export default App;
