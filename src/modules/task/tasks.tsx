@@ -50,13 +50,13 @@ export function TaskItem({
         <p>{task.isDone ? "✅ Done" : "📝 Todo"}</p>
       </div>
       <div className="flex gap-2">
-        <Button size="sm">
+        <Button size="xs">
           <EyeIcon className="size-3" />
-          <span className="text-xs">View</span>
+          <span>View</span>
         </Button>
-        <Button variant="destructive" size="sm" onClick={handleDelete}>
+        <Button variant="destructive" size="xs" onClick={handleDelete}>
           <TrashIcon className="size-3" />
-          <span className="text-xs">Delete</span>
+          <span>Delete</span>
         </Button>
       </div>
     </section>
