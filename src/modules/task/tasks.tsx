@@ -1,14 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { EyeIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
-
-type Task = {
-  id: number;
-  title: string;
-  isDone: boolean;
-};
-
-type Tasks = Task[];
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { TaskSchema, type Task, type Tasks } from "@/modules/task/schema";
 
 const initialDataTasks: Tasks = [
   { id: 1, title: "Breakfast", isDone: true },
@@ -24,15 +19,50 @@ export function Tasks() {
 
     setTasks(updatedTasks);
   }
+  function handleCreate(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
+
+    const newTask = {
+      id: newId,
+      title: formData.get("title")?.toString().trim() || "",
+      isDone: false,
+    };
+
+    const result = TaskSchema.safeParse(newTask);
+    if (!result.success) {
+      alert("New task data invalid");
+      return null;
+    }
+
+    const updatedTasks: Tasks = [...tasks, newTask];
+
+    setTasks(updatedTasks);
+
+    event.currentTarget.reset();
+  }
 
   return (
-    <ul className="flex flex-col gap-4">
-      {tasks.map((task) => (
-        <li key={task.id}>
-          <TaskItem task={task} handleDelete={() => handleDelete(task.id)} />
-        </li>
-      ))}
-    </ul>
+    <section className="space-y-8">
+      <form method="post" onSubmit={handleCreate} className="space-y-2">
+        <div className="space-y-2">
+          <Label htmlFor="title">Title:</Label>
+          <Input id="title" type="text" name="title" required />
+        </div>
+        <Button type="submit">Create Task</Button>
+      </form>
+
+      <ul className="flex flex-col gap-4">
+        {tasks.map((task) => (
+          <li key={task.id}>
+            <TaskItem task={task} handleDelete={() => handleDelete(task.id)} />
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
