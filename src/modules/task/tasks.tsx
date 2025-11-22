@@ -35,6 +35,7 @@ export function Tasks() {
     const result = TaskSchema.safeParse(newTask);
     if (!result.success) {
       alert("New task data invalid");
+
       return null;
     }
 
