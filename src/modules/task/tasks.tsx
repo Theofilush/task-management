@@ -19,6 +19,7 @@ export function Tasks() {
 
     setTasks(updatedTasks);
   }
+
   function handleCreate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -34,7 +35,7 @@ export function Tasks() {
 
     const result = TaskSchema.safeParse(newTask);
     if (!result.success) {
-      alert("New task data invalid");
+      alert("Title is invalid");
       return null;
     }
 
