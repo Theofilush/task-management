@@ -1,11 +1,5 @@
-import type { Tasks } from "@/modules/task/schema";
+import { initialDataTasks } from "@/modules/task/data";
 import { useParams } from "react-router";
-
-const initialDataTasks: Tasks = [
-  { id: 1, title: "Breakfast", isDone: true },
-  { id: 2, title: "Lunch", isDone: false },
-  { id: 3, title: "Dinner", isDone: false },
-];
 
 export function TaskId() {
   const params = useParams();

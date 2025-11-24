@@ -5,12 +5,8 @@ import { TaskSchema, type Task, type Tasks } from "@/modules/task/schema";
 import { EyeIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-
-const initialDataTasks: Tasks = [
-  { id: 1, title: "Breakfast", isDone: true },
-  { id: 2, title: "Lunch", isDone: false },
-  { id: 3, title: "Dinner", isDone: false },
-];
+import z from "zod";
+import { initialDataTasks } from "./data";
 
 export function Tasks() {
   const [tasks, setTasks] = useState(initialDataTasks);
@@ -20,30 +16,35 @@ export function Tasks() {
 
     setTasks(updatedTasks);
   }
+
   function handleCreate(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+      const formData = new FormData(event.currentTarget);
 
-    const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
+      const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
 
-    const newTask = {
-      id: newId,
-      title: formData.get("title")?.toString().trim() || "",
-      isDone: false,
-    };
+      const newTask = {
+        id: newId,
+        title: formData.get("title")?.toString().trim() || "",
+        isDone: false,
+      };
 
-    const result = TaskSchema.safeParse(newTask);
-    if (!result.success) {
-      alert(result.error.issues[0].message);
-      return null;
+      TaskSchema.parse(newTask);
+
+      const updatedTasks: Tasks = [...tasks, newTask];
+
+      setTasks(updatedTasks);
+
+      event.currentTarget.reset();
+    } catch (error: unknown) {
+      if (error instanceof z.ZodError) {
+        const messages = error.issues.map((i) => `${i.message}`).join("\n");
+        alert(messages);
+        return null;
+      }
     }
-
-    const updatedTasks: Tasks = [...tasks, newTask];
-
-    setTasks(updatedTasks);
-
-    event.currentTarget.reset();
   }
 
   return (
