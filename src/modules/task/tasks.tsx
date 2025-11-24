@@ -35,8 +35,6 @@ export function Tasks() {
 
     const result = TaskSchema.safeParse(newTask);
     if (!result.success) {
-      console.log(result.error.issues[0]);
-
       alert(result.error.issues[0].message);
       return null;
     }
