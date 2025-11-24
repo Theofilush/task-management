@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { EyeIcon, TrashIcon } from "lucide-react";
-import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { TaskSchema, type Task, type Tasks } from "@/modules/task/schema";
+import { EyeIcon, TrashIcon } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router";
 
 const initialDataTasks: Tasks = [
@@ -51,7 +51,13 @@ export function Tasks() {
       <form method="post" onSubmit={handleCreate} className="space-y-2">
         <div className="space-y-2">
           <Label htmlFor="title">Title:</Label>
-          <Input id="title" type="text" name="title" required />
+          <Input
+            className="bg-white"
+            id="title"
+            type="text"
+            name="title"
+            required
+          />
         </div>
         <Button type="submit">Create Task</Button>
       </form>
