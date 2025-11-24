@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { TaskSchema, type Task, type Tasks } from "@/modules/task/schema";
+import { Link } from "react-router";
 
 const initialDataTasks: Tasks = [
   { id: 1, title: "Breakfast", isDone: true },
@@ -35,7 +36,6 @@ export function Tasks() {
     const result = TaskSchema.safeParse(newTask);
     if (!result.success) {
       alert("New task data invalid");
-
       return null;
     }
 
@@ -72,7 +72,7 @@ export function TaskItem({
   handleDelete,
 }: {
   task: Task;
-  handleDelete: () => void;
+  handleDelete?: () => void;
 }) {
   return (
     <section className="flex justify-between gap-4 rounded-lg bg-sky-100 p-4">
@@ -81,14 +81,18 @@ export function TaskItem({
         <p>{task.isDone ? "✅ Done" : "📝 Todo"}</p>
       </div>
       <div className="flex gap-2">
-        <Button size="sm">
-          <EyeIcon className="size-3" />
-          <span className="text-xs">View</span>
+        <Button asChild size="xs">
+          <Link to={`/tasks/${task.id}`}>
+            <EyeIcon className="size-3" />
+            <span className="text-xs">View</span>
+          </Link>
         </Button>
-        <Button variant="destructive" size="sm" onClick={handleDelete}>
-          <TrashIcon className="size-3" />
-          <span className="text-xs">Delete</span>
-        </Button>
+        {handleDelete && (
+          <Button variant="destructive" size="xs" onClick={handleDelete}>
+            <TrashIcon className="size-3" />
+            <span className="text-xs">Delete</span>
+          </Button>
+        )}
       </div>
     </section>
   );
