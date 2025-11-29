@@ -80,7 +80,7 @@ export function Tasks() {
             <ul className="flex flex-col gap-4">
               {tasks.map((task) => (
                 <li key={task.id}>
-                  <TaskItem
+                  <TodoTaskItem
                     task={task}
                     handleDelete={() => handleDelete(task.id)}
                   />
@@ -96,6 +96,16 @@ export function Tasks() {
             ⚡ In Progress
           </h2>
           <div className="space-y-4">
+            <ul className="flex flex-col gap-4">
+              {tasks.map((task) => (
+                <li key={task.id}>
+                  <InProgressTaskItem
+                    task={task}
+                    handleDelete={() => handleDelete(task.id)}
+                  />
+                </li>
+              ))}
+            </ul>
             <div className="flex items-center justify-between rounded-lg bg-yellow-50 p-4 shadow">
               <div>
                 <h3 className="font-medium text-gray-800">Membuat Dashboard</h3>
@@ -124,6 +134,16 @@ export function Tasks() {
             ✅ Done
           </h2>
           <div className="space-y-4">
+            <ul className="flex flex-col gap-4">
+              {tasks.map((task) => (
+                <li key={task.id}>
+                  <DoneTaskItem
+                    task={task}
+                    handleDelete={() => handleDelete(task.id)}
+                  />
+                </li>
+              ))}
+            </ul>
             <div className="flex items-center justify-between rounded-lg bg-green-50 p-4 shadow">
               <div>
                 <h3 className="font-medium text-gray-800">Setup Project</h3>
@@ -168,7 +188,7 @@ export function Tasks() {
   );
 }
 
-export function TaskItem({
+export function TodoTaskItem({
   task,
   handleDelete,
 }: {
@@ -180,7 +200,83 @@ export function TaskItem({
       <div>
         <h3 className="font-medium text-gray-800">{task.title}</h3>
         <p className="text-sm text-gray-500">{task.description}</p>
-        <p className="text-sm text-gray-500">
+        <p className="text-xs text-gray-500">
+          {task.isDone ? "✅ Done" : "📝 Todo"}
+        </p>
+      </div>
+      <div className="flex space-x-2">
+        <Link
+          to={`/tasks/${task.id}`}
+          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800"
+        >
+          <EyeIcon className="size-3" />
+          <span className="text-xs">View</span>
+        </Link>
+        {handleDelete && (
+          <button
+            className="inline-flex items-center gap-1 text-red-600 hover:text-red-800"
+            onClick={handleDelete}
+          >
+            <TrashIcon className="size-3" />
+            <span className="text-xs">Delete</span>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function InProgressTaskItem({
+  task,
+  handleDelete,
+}: {
+  task: Task;
+  handleDelete?: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between rounded-lg bg-yellow-50 p-4 shadow">
+      <div>
+        <h3 className="font-medium text-gray-800">{task.title}</h3>
+        <p className="text-sm text-gray-500">{task.description}</p>
+        <p className="text-xs text-gray-500">
+          {task.isDone ? "✅ Done" : "📝 Todo"}
+        </p>
+      </div>
+      <div className="flex space-x-2">
+        <Link
+          to={`/tasks/${task.id}`}
+          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800"
+        >
+          <EyeIcon className="size-3" />
+          <span className="text-xs">View</span>
+        </Link>
+        {handleDelete && (
+          <button
+            className="inline-flex items-center gap-1 text-red-600 hover:text-red-800"
+            onClick={handleDelete}
+          >
+            <TrashIcon className="size-3" />
+            <span className="text-xs">Delete</span>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function DoneTaskItem({
+  task,
+  handleDelete,
+}: {
+  task: Task;
+  handleDelete?: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between rounded-lg bg-green-50 p-4 shadow">
+      <div>
+        <h3 className="font-medium text-gray-800">{task.title}</h3>
+        <p className="text-sm text-gray-500">{task.description}</p>
+        <p className="text-xs text-gray-500">
           {task.isDone ? "✅ Done" : "📝 Todo"}
         </p>
       </div>
