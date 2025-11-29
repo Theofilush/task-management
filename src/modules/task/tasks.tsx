@@ -24,6 +24,7 @@ export function Tasks() {
 
     setTasks(updatedTasks);
   }
+
   function handleCreate(event: React.FormEvent<HTMLFormElement>) {
     try {
       event.preventDefault();
