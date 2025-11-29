@@ -13,9 +13,9 @@ export const TaskSchema = z.object({
     .max(100, "Too long max 100 characters"),
   status: z.string(),
   priority: z.string(),
-  dueDate: z.iso.date(),
-  createdAt: z.iso.date(),
-  updatedAt: z.iso.date(),
+  dueDate: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export const TasksSchema = TaskSchema.array();

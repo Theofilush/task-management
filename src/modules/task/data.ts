@@ -3,7 +3,7 @@ import type { Tasks } from "@/modules/task/schema";
 export const initialDataTasks: Tasks = [
   {
     id: 1,
-    title: "Belajar Tailwind",
+    title: "Belajar Tailwindd",
     description: "Mempelajari dasar-dasar Tailwind CSS",
     status: "todo",
     priority: "high",
@@ -14,7 +14,7 @@ export const initialDataTasks: Tasks = [
   },
   {
     id: 2,
-    title: "Membuat Dashboard",
+    title: "Membuat Dashboardd",
     description: "Membuat halaman dashboard dengan form dan list task",
     status: "inprogress",
     priority: "medium",
@@ -25,7 +25,7 @@ export const initialDataTasks: Tasks = [
   },
   {
     id: 3,
-    title: "Setup Project",
+    title: "Setup Projectt",
     description: "Inisialisasi project dengan Tailwind dan konfigurasi dasar",
     status: "done",
     priority: "low",

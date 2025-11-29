@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router";
 
-export function Layout() {
+export function Layout2() {
   return (
     <div className="flex justify-center">
       <div className="w-full max-w-lg">
@@ -23,6 +23,34 @@ export function Layout() {
           <Outlet />
         </main>
       </div>
+    </div>
+  );
+}
+
+export function Layout() {
+  return (
+    <div className="min-h-screen bg-linear-to-r from-indigo-50 via-white to-indigo-100 p-8">
+      <header className="mb-8 flex w-full items-center justify-between">
+        <h1 className="text-3xl font-bold text-indigo-700">
+          <Link to="/">✨ Task Management</Link>
+        </h1>
+        {/* <ul className="inline-flex gap-10">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+        </ul> */}
+        <a
+          href="/experiment/indexv4-create.html"
+          className="rounded-lg bg-indigo-600 px-5 py-2 text-white shadow transition hover:bg-indigo-700"
+        >
+          + Create Task
+        </a>
+      </header>
+
+      <Outlet />
     </div>
   );
 }
