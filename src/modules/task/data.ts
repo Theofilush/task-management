@@ -4,7 +4,7 @@ export const initialDataTasks: Tasks = [
   // === TODO ===
   {
     id: 1,
-    title: "Belajar Tailwindd",
+    title: "Belajar Tailwind",
     description: "Mempelajari dasar-dasar Tailwind CSS",
     status: "todo",
     priority: "high",
@@ -61,7 +61,7 @@ export const initialDataTasks: Tasks = [
   // === INPROGRESS ===
   {
     id: 6,
-    title: "Membuat Dashboardd",
+    title: "Membuat Dashboard",
     description: "Membuat halaman dashboard dengan form dan list task",
     status: "inprogress",
     priority: "medium",

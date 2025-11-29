@@ -78,14 +78,16 @@ export function Tasks() {
           </h2>
           <div className="space-y-4">
             <ul className="flex flex-col gap-4">
-              {tasks.map((task) => (
-                <li key={task.id}>
-                  <TodoTaskItem
-                    task={task}
-                    handleDelete={() => handleDelete(task.id)}
-                  />
-                </li>
-              ))}
+              {tasks
+                .filter((task) => task.status === "todo")
+                .map((task) => (
+                  <li key={task.id}>
+                    <TodoTaskItem
+                      task={task}
+                      handleDelete={() => handleDelete(task.id)}
+                    />
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
@@ -97,34 +99,17 @@ export function Tasks() {
           </h2>
           <div className="space-y-4">
             <ul className="flex flex-col gap-4">
-              {tasks.map((task) => (
-                <li key={task.id}>
-                  <InProgressTaskItem
-                    task={task}
-                    handleDelete={() => handleDelete(task.id)}
-                  />
-                </li>
-              ))}
+              {tasks
+                .filter((task) => task.status === "inprogress")
+                .map((task) => (
+                  <li key={task.id}>
+                    <InProgressTaskItem
+                      task={task}
+                      handleDelete={() => handleDelete(task.id)}
+                    />
+                  </li>
+                ))}
             </ul>
-            <div className="flex items-center justify-between rounded-lg bg-yellow-50 p-4 shadow">
-              <div>
-                <h3 className="font-medium text-gray-800">Membuat Dashboard</h3>
-                <p className="text-sm text-gray-500">
-                  Membuat halaman dashboard dengan form dan list task
-                </p>
-              </div>
-              <div className="flex space-x-2">
-                <a
-                  href="/experiment/indexv4-view.html"
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  View
-                </a>
-                <button className="text-red-600 hover:text-red-800">
-                  Delete
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -135,56 +120,21 @@ export function Tasks() {
           </h2>
           <div className="space-y-4">
             <ul className="flex flex-col gap-4">
-              {tasks.map((task) => (
-                <li key={task.id}>
-                  <DoneTaskItem
-                    task={task}
-                    handleDelete={() => handleDelete(task.id)}
-                  />
-                </li>
-              ))}
+              {tasks
+                .filter((task) => task.status === "done")
+                .map((task) => (
+                  <li key={task.id}>
+                    <DoneTaskItem
+                      task={task}
+                      handleDelete={() => handleDelete(task.id)}
+                    />
+                  </li>
+                ))}
             </ul>
-            <div className="flex items-center justify-between rounded-lg bg-green-50 p-4 shadow">
-              <div>
-                <h3 className="font-medium text-gray-800">Setup Project</h3>
-                <p className="text-sm text-gray-500">
-                  Inisialisasi project dengan Tailwind
-                </p>
-              </div>
-              <div className="flex space-x-2">
-                <a
-                  href="/experiment/indexv4-view.html"
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  View
-                </a>
-                <button className="text-red-600 hover:text-red-800">
-                  Delete
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </section>
     </div>
-
-    // <section className="space-y-8">
-    //   <form method="post" onSubmit={handleCreate} className="space-y-2">
-    //     <div className="space-y-2">
-    //       <Label htmlFor="title">Title:</Label>
-    //       <Input id="title" type="text" name="title" required />
-    //     </div>
-    //     <Button type="submit">Create Task</Button>
-    //   </form>
-
-    //   <ul className="flex flex-col gap-4">
-    //     {tasks.map((task) => (
-    //       <li key={task.id}>
-    //         <TaskItem task={task} handleDelete={() => handleDelete(task.id)} />
-    //       </li>
-    //     ))}
-    //   </ul>
-    // </section>
   );
 }
 
