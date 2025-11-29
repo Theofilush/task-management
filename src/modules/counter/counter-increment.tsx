@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useLocalStorage } from "@/modules/common/use-local-storage";
 
 export function CounterIncrement() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useLocalStorage("count", 0);
 
   function handleIncrement() {
     setCount(count + 1);

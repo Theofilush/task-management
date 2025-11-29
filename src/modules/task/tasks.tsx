@@ -3,8 +3,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { TaskSchema, type Task, type Tasks } from "@/modules/task/schema";
 import { EyeIcon, TrashIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { z } from "zod";
+import { toast } from "sonner";
 
 const initialDataTasks: Tasks = [
   { id: 1, title: "Breakfast", isDone: true },
@@ -13,7 +15,14 @@ const initialDataTasks: Tasks = [
 ];
 
 export function Tasks() {
-  const [tasks, setTasks] = useState(initialDataTasks);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? (JSON.parse(storedTasks) as Tasks) : initialDataTasks;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function handleDelete(id: number) {
     const updatedTasks = tasks.filter((task) => task.id !== id);
@@ -21,29 +30,32 @@ export function Tasks() {
     setTasks(updatedTasks);
   }
   function handleCreate(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+      const formData = new FormData(event.currentTarget);
 
-    const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
+      const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
 
-    const newTask = {
-      id: newId,
-      title: formData.get("title")?.toString().trim() || "",
-      isDone: false,
-    };
+      const newTask = {
+        id: newId,
+        title: formData.get("title")?.toString().trim() || "",
+        isDone: false,
+      };
 
-    const result = TaskSchema.safeParse(newTask);
-    if (!result.success) {
-      alert(result.error.issues[0].message);
-      return null;
+      TaskSchema.parse(newTask);
+
+      const updatedTasks: Tasks = [...tasks, newTask];
+
+      setTasks(updatedTasks);
+
+      event.currentTarget.reset();
+    } catch (error: unknown) {
+      if (error instanceof z.ZodError) {
+        const messages = error.issues.map((issue) => issue.message).join(", ");
+        toast.error("Task invalid", { description: messages });
+      }
     }
-
-    const updatedTasks: Tasks = [...tasks, newTask];
-
-    setTasks(updatedTasks);
-
-    event.currentTarget.reset();
   }
 
   return (
@@ -51,13 +63,7 @@ export function Tasks() {
       <form method="post" onSubmit={handleCreate} className="space-y-2">
         <div className="space-y-2">
           <Label htmlFor="title">Title:</Label>
-          <Input
-            className="bg-white"
-            id="title"
-            type="text"
-            name="title"
-            required
-          />
+          <Input id="title" type="text" name="title" required />
         </div>
         <Button type="submit">Create Task</Button>
       </form>
