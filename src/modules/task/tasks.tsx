@@ -7,12 +7,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { z } from "zod";
 import { toast } from "sonner";
-
-const initialDataTasks: Tasks = [
-  { id: 1, title: "Breakfast", isDone: true },
-  { id: 2, title: "Lunch", isDone: false },
-  { id: 3, title: "Dinner", isDone: false },
-];
+import { initialDataTasks } from "@/modules/task/data";
 
 export function Tasks() {
   const [tasks, setTasks] = useState(() => {
@@ -41,6 +36,12 @@ export function Tasks() {
         id: newId,
         title: formData.get("title")?.toString().trim() || "",
         isDone: false,
+        description: "abcd",
+        status: "null",
+        priority: "null",
+        dueDate: "null",
+        createdAt: "null",
+        updatedAt: "null",
       };
 
       TaskSchema.parse(newTask);

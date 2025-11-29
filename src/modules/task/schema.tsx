@@ -7,6 +7,15 @@ export const TaskSchema = z.object({
     .min(3, "Too short min 3 characters")
     .max(100, "Too long max 100 characters"),
   isDone: z.boolean("isDone is required"),
+  description: z
+    .string("Title is required")
+    .min(3, "Too short min 3 characters")
+    .max(100, "Too long max 100 characters"),
+  status: z.string(),
+  priority: z.string(),
+  dueDate: z.iso.date(),
+  createdAt: z.iso.date(),
+  updatedAt: z.iso.date(),
 });
 
 export const TasksSchema = TaskSchema.array();
