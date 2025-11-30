@@ -33,20 +33,18 @@ export function Tasks() {
 
       const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
 
-      // ✅ deklarasikan langsung sebagai Task
       const newTask: Task = {
         id: newId,
         title: formData.get("title")?.toString().trim() || "",
         isDone: false,
-        description: formData.get("description")?.toString() || "", // bisa ambil dari form
-        status: "todo", // union literal
-        priority: "low", // union literal
+        description: formData.get("description")?.toString() || "",
+        status: "todo",
+        priority: "low",
         dueDate: formData.get("dueDate")?.toString() || undefined,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
 
-      // ✅ validasi dengan Zod
       TaskSchema.parse(newTask);
 
       const updatedTasks: Tasks = [...tasks, newTask];

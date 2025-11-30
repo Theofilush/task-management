@@ -35,7 +35,7 @@ export function TaskCreate() {
       const formData = new FormData(event.currentTarget);
 
       const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
-
+      const rawDueDate = formData.get("due-date")?.toString();
       const newTask: Task = {
         id: newId,
         title: formData.get("title")?.toString().trim() || "",
@@ -49,8 +49,8 @@ export function TaskCreate() {
           | "low"
           | "medium"
           | "high",
-        dueDate: "2025-11-29T10:00:00Z",
-        createdAt: "2025-11-29T10:00:00Z",
+        dueDate: rawDueDate ? new Date(rawDueDate).toISOString() : undefined,
+        createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
 

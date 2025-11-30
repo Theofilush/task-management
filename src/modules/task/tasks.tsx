@@ -8,6 +8,8 @@ import { Link } from "react-router";
 import { z } from "zod";
 import { toast } from "sonner";
 import { initialDataTasks } from "@/modules/task/data";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 export function Tasks() {
   const [tasks, setTasks] = useState(() => {
@@ -37,12 +39,12 @@ export function Tasks() {
         id: newId,
         title: formData.get("title")?.toString().trim() || "",
         isDone: false,
-        description: "abcd",
+        description: "-",
         status: "todo",
         priority: "low",
-        dueDate: "2025-11-29T10:00:00Z",
-        createdAt: "2025-11-29T10:00:00Z",
-        updatedAt: "2025-11-29T10:00:00Z",
+        dueDate: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
       TaskSchema.parse(newTask);
@@ -151,8 +153,11 @@ export function TodoTaskItem({
       <div>
         <h3 className="font-medium text-gray-800">{task.title}</h3>
         <p className="text-sm text-gray-500">{task.description}</p>
-        <p className="text-xs text-gray-500">
-          {task.isDone ? "✅ Done" : "📝 Todo"}
+        <p className="my-3 text-xs text-gray-500">
+          Updated at{" "}
+          {format(new Date(task.updatedAt), "dd MMMM yyyy, HH:mm", {
+            locale: id,
+          })}
         </p>
       </div>
       <div className="flex space-x-2">
@@ -189,8 +194,11 @@ export function InProgressTaskItem({
       <div>
         <h3 className="font-medium text-gray-800">{task.title}</h3>
         <p className="text-sm text-gray-500">{task.description}</p>
-        <p className="text-xs text-gray-500">
-          {task.isDone ? "✅ Done" : "📝 Todo"}
+        <p className="my-3 text-xs text-gray-500">
+          Updated at{" "}
+          {format(new Date(task.updatedAt), "dd MMMM yyyy, HH:mm", {
+            locale: id,
+          })}
         </p>
       </div>
       <div className="flex space-x-2">
@@ -227,8 +235,11 @@ export function DoneTaskItem({
       <div>
         <h3 className="font-medium text-gray-800">{task.title}</h3>
         <p className="text-sm text-gray-500">{task.description}</p>
-        <p className="text-xs text-gray-500">
-          {task.isDone ? "✅ Done" : "📝 Todo"}
+        <p className="my-3 text-xs text-gray-500">
+          Updated at{" "}
+          {format(new Date(task.updatedAt), "dd MMMM yyyy, HH:mm", {
+            locale: id,
+          })}
         </p>
       </div>
       <div className="flex space-x-2">
