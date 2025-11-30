@@ -3,6 +3,8 @@ import { type Tasks } from "@/modules/task/schema";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { toast } from "sonner";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 export function TaskId() {
   const [tasks, setTasks] = useState(() => {
@@ -96,15 +98,27 @@ export function TaskId() {
         </div>
         <div className="space-y-2">
           <p className="text-sm text-gray-500">Due Date</p>
-          <p className="font-medium text-gray-800">{task.dueDate}</p>
+          <p className="font-medium text-gray-800">
+            {format(new Date(task.dueDate ?? ""), "dd MMMM yyyy, HH:mm", {
+              locale: id,
+            })}
+          </p>
         </div>
         <div className="space-y-2">
           <p className="text-sm text-gray-500">Created At</p>
-          <p className="font-medium text-gray-800">{task.createdAt}</p>
+          <p className="font-medium text-gray-800">
+            {format(new Date(task.createdAt), "dd MMMM yyyy, HH:mm", {
+              locale: id,
+            })}
+          </p>
         </div>
         <div className="space-y-2">
           <p className="text-sm text-gray-500">Updated At</p>
-          <p className="font-medium text-gray-800">{task.updatedAt}</p>
+          <p className="font-medium text-gray-800">
+            {format(new Date(task.updatedAt), "dd MMMM yyyy, HH:mm", {
+              locale: id,
+            })}
+          </p>
         </div>
       </div>
 
