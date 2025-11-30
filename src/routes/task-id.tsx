@@ -1,21 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button } from "@/components/ui/button";
 import { initialDataTasks } from "@/modules/task/data";
-import { TaskSchema, type Tasks } from "@/modules/task/schema";
-import { useState } from "react";
+import { type Tasks } from "@/modules/task/schema";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { toast } from "sonner";
-import z from "zod";
 
 export function TaskId() {
   const [tasks, setTasks] = useState(() => {
     const storedTasks = localStorage.getItem("tasks");
     return storedTasks ? (JSON.parse(storedTasks) as Tasks) : initialDataTasks;
   });
-  // const [tasks, setTasks] = useState<Tasks>(() => {
-  //   const storedTasks = localStorage.getItem("tasks");
-  //   return storedTasks ? JSON.parse(storedTasks) : [];
-  // });
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const params = useParams();
   const { taskId } = params;
@@ -145,10 +141,6 @@ export function TaskId() {
             Done
           </button>
         )}
-        <Button onClick={() => handleDone(task.id)}>Done</Button>
-        {/* <button className="rounded-lg bg-emerald-500 px-5 py-2 text-white shadow transition hover:bg-emerald-600">
-          Done
-        </button> */}
       </div>
     </section>
   );
