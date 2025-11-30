@@ -6,6 +6,7 @@ import { About } from "@/routes/about";
 import { TaskId } from "@/routes/task-id";
 import { App } from "@/app";
 import "@/index.css";
+import { TaskCreate } from "./routes/task-create";
 
 createRoot(document.getElementById("root")!).render(
   <>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />} />
           <Route path="/about" element={<About />} />
           <Route path="/tasks/:taskId" element={<TaskId />} />
+          <Route path="/task/create" element={<TaskCreate />} />
         </Route>
       </Routes>
     </BrowserRouter>

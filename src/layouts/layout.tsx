@@ -31,23 +31,15 @@ export function Layout() {
   return (
     <div className="min-h-screen bg-linear-to-r from-indigo-50 via-white to-indigo-100 p-8">
       <header className="mb-8 flex w-full items-center justify-between">
-        <h1 className="text-3xl font-bold text-indigo-700">
-          <Link to="/">✨ Task Management</Link>
+        <h1 className="text-xl font-bold text-indigo-700">
+          <Link to="/">✨Handoyo Task Management</Link>
         </h1>
-        {/* <ul className="inline-flex gap-10">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-        </ul> */}
-        <a
-          href="/experiment/indexv4-create.html"
+        <Link
           className="rounded-lg bg-indigo-600 px-5 py-2 text-white shadow transition hover:bg-indigo-700"
+          to="/task/create"
         >
           + Create Task
-        </a>
+        </Link>
       </header>
 
       <Outlet />
