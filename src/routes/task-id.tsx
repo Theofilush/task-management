@@ -12,25 +12,26 @@ export function TaskId() {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+  const { taskId } = useParams();
+  // const params = useParams();
+  // const { taskId } = params;
 
-  const params = useParams();
-  const { taskId } = params;
+  // const storedTasks = localStorage.getItem("tasks");
 
-  const storedTasks = localStorage.getItem("tasks");
+  // if (!storedTasks) {
+  //   return (
+  //     <div>
+  //       <h1>Tasks data unavailable</h1>
 
-  if (!storedTasks) {
-    return (
-      <div>
-        <h1>Tasks data unavailable</h1>
+  //       <Link to="/">Go to home</Link>
+  //     </div>
+  //   );
+  // }
 
-        <Link to="/">Go to home</Link>
-      </div>
-    );
-  }
+  // const parsedTasks = JSON.parse(storedTasks) as Tasks;
 
-  const parsedTasks = JSON.parse(storedTasks) as Tasks;
-
-  const task = parsedTasks.find((task) => task.id === Number(taskId));
+  // const task = parsedTasks.find((task) => task.id === Number(taskId));
+  const task = tasks.find((task) => task.id === Number(taskId));
 
   if (!task) {
     return (

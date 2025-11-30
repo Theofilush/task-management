@@ -33,25 +33,27 @@ export function Tasks() {
 
       const newId = tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 1;
 
+      // ✅ deklarasikan langsung sebagai Task
       const newTask: Task = {
         id: newId,
         title: formData.get("title")?.toString().trim() || "",
         isDone: false,
-        description: "abcd",
-        status: "todo",
-        priority: "low",
-        dueDate: "2025-11-29T10:00:00Z",
-        createdAt: "2025-11-29T10:00:00Z",
-        updatedAt: "2025-11-29T10:00:00Z",
+        description: formData.get("description")?.toString() || "", // bisa ambil dari form
+        status: "todo", // union literal
+        priority: "low", // union literal
+        dueDate: formData.get("dueDate")?.toString() || undefined,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
+      // ✅ validasi dengan Zod
       TaskSchema.parse(newTask);
 
       const updatedTasks: Tasks = [...tasks, newTask];
-
       setTasks(updatedTasks);
 
       event.currentTarget.reset();
+      toast.success("Task berhasil dibuat");
     } catch (error: unknown) {
       if (error instanceof z.ZodError) {
         const messages = error.issues.map((issue) => issue.message).join(", ");

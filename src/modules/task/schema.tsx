@@ -10,10 +10,11 @@ export const TaskSchema = z.object({
   description: z
     .string("Title is required")
     .min(3, "Too short min 3 characters")
-    .max(100, "Too long max 100 characters"),
-  status: z.string(),
-  priority: z.string(),
-  dueDate: z.string(),
+    .max(500, "Too long max 100 characters")
+    .optional(),
+  status: z.enum(["todo", "inprogress", "done"]),
+  priority: z.enum(["low", "medium", "high"]),
+  dueDate: z.string().datetime().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

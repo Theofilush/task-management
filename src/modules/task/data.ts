@@ -9,8 +9,8 @@ export const initialDataTasks: Tasks = [
     status: "todo",
     priority: "high",
     dueDate: "2025-12-01",
-    createdAt: "2025-11-29T10:00:00Z",
-    updatedAt: "2025-11-29T12:00:00Z",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
     isDone: false,
   },
   {
