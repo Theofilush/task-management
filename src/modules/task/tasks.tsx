@@ -38,13 +38,13 @@ export function Tasks() {
       const newTask: Task = {
         id: newId,
         title: formData.get("title")?.toString().trim() || "",
-        isDone: false,
+
         description: "-",
         status: "todo",
         priority: "low",
-        dueDate: new Date().toISOString(),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        dueDate: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       TaskSchema.parse(newTask);

@@ -36,7 +36,7 @@ export function Layout() {
         </h1>
         <Link
           className="rounded-lg bg-indigo-600 px-5 py-2 text-white shadow transition hover:bg-indigo-700"
-          to="/task/create"
+          to="/create"
         >
           + Create Task
         </Link>

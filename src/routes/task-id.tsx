@@ -11,28 +11,15 @@ export function TaskId() {
     const storedTasks = localStorage.getItem("tasks");
     return storedTasks ? (JSON.parse(storedTasks) as Tasks) : initialDataTasks;
   });
+
+  console.log({ tasks });
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
   const { taskId } = useParams();
-  // const params = useParams();
-  // const { taskId } = params;
 
-  // const storedTasks = localStorage.getItem("tasks");
-
-  // if (!storedTasks) {
-  //   return (
-  //     <div>
-  //       <h1>Tasks data unavailable</h1>
-
-  //       <Link to="/">Go to home</Link>
-  //     </div>
-  //   );
-  // }
-
-  // const parsedTasks = JSON.parse(storedTasks) as Tasks;
-
-  // const task = parsedTasks.find((task) => task.id === Number(taskId));
   const task = tasks.find((task) => task.id === Number(taskId));
 
   if (!task) {
@@ -42,6 +29,9 @@ export function TaskId() {
       </div>
     );
   }
+
+  const isStatusTodo = task.status === "todo";
+  const isStatusInProgreess = task?.status === "inprogress";
 
   function toCapitalCase(text: string): string {
     return text
@@ -57,8 +47,7 @@ export function TaskId() {
           ? {
               ...task,
               status: "done",
-              isDone: true,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date(),
             }
           : task,
       );
@@ -73,18 +62,28 @@ export function TaskId() {
   return (
     <section className="mx-auto max-w-3xl rounded-xl bg-white p-8 shadow-lg">
       <div className="mb-6 flex items-center justify-between">
+        <Link
+          className="rounded-lg border border-gray-300 px-5 py-2 text-gray-600 transition hover:bg-gray-100"
+          to="/"
+        >
+          Back
+        </Link>
+
         <h2 className="text-2xl font-semibold text-gray-800">
           {toCapitalCase(task.title)}
         </h2>
-        <span className="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700">
+        <button
+          className="rounded-lg bg-emerald-500 px-5 py-2 text-white shadow transition hover:bg-emerald-600"
+          onClick={() => handleDone(task.id)}
+        >
           <p>
-            {task.status === "todo"
+            {isStatusTodo
               ? "📝 Todo"
-              : task.status === "done"
-                ? "✅ Done"
-                : "⚡ In Progress"}
+              : isStatusInProgreess
+                ? "⚡ In Progress"
+                : "✅ Done"}
           </p>
-        </span>
+        </button>
       </div>
 
       <p className="mb-6 text-gray-600">{task.description}</p>
@@ -120,42 +119,6 @@ export function TaskId() {
             })}
           </p>
         </div>
-      </div>
-
-      {/* TODO: add Tags */}
-      {/* <div className="mb-6">
-        <p className="mb-2 text-sm text-gray-500">Tags</p>
-        <div className="flex space-x-2">
-          <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
-            learning
-          </span>
-          <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm text-indigo-700">
-            frontend
-          </span>
-        </div>
-      </div> */}
-
-      <div className="flex justify-end space-x-4">
-        <Link
-          className="rounded-lg border border-gray-300 px-5 py-2 text-gray-600 transition hover:bg-gray-100"
-          to="/"
-        >
-          Back
-        </Link>
-
-        {/* TODO: add edit feature */}
-        {/* <button className="rounded-lg bg-indigo-600 px-5 py-2 text-white shadow transition hover:bg-indigo-700">
-          Edit Task
-        </button> */}
-
-        {(task.status === "todo" || task.status === "inprogress") && (
-          <button
-            className="rounded-lg bg-emerald-500 px-5 py-2 text-white shadow transition hover:bg-emerald-600"
-            onClick={() => handleDone(task.id)}
-          >
-            Done
-          </button>
-        )}
       </div>
     </section>
   );

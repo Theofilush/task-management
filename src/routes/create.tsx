@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import z from "zod";
 
-export function TaskCreate() {
+export function Create() {
   const navigate = useNavigate();
 
   const [tasks, setTasks] = useState(() => {
@@ -39,7 +39,7 @@ export function TaskCreate() {
       const newTask: Task = {
         id: newId,
         title: formData.get("title")?.toString().trim() || "",
-        isDone: false,
+
         description: formData.get("description")?.toString().trim() || "",
         status: (formData.get("status")?.toString().trim() || "todo") as
           | "todo"
@@ -49,9 +49,9 @@ export function TaskCreate() {
           | "low"
           | "medium"
           | "high",
-        dueDate: rawDueDate ? new Date(rawDueDate).toISOString() : undefined,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        dueDate: rawDueDate ? new Date(rawDueDate) : undefined,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       TaskSchema.parse(newTask);
